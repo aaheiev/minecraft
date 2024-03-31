@@ -1,0 +1,7 @@
+---
+- name: "install php modules"
+#  notify: restart php-fpm
+  apt:
+    pkg: "{{ php_modules }}"
+    state: present
+  when: php_modules.0 is defined

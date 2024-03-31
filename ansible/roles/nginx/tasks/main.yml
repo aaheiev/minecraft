@@ -1,0 +1,16 @@
+---
+# tasks file for nginx
+- name: "add ppa and install nginx"
+  include_tasks: install.yml
+
+- name: "configure nginx"
+  include_tasks: config.yml
+
+- name: "generate dhparam file"
+  include_tasks: dhparam.yml
+
+- name: "delete nginx default site"
+  file:
+    path:  /etc/nginx/sites-enabled/default
+    state: absent
+  when: nginx_delete_default_site

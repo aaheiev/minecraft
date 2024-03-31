@@ -1,0 +1,17 @@
+---
+# tasks file for php
+- name: "configure php facts"
+  include_tasks: vars.yml
+
+- name: "install command-line php"
+  apt: name="php-cli" state=present
+
+- name: "install php pear"
+  apt: name=php-pear
+
+- name: "install php modules"
+  include_tasks: modules.yml
+
+- name: "install and configure php-fpm"
+  include_tasks: fpm.yml
+  when: php_fpm

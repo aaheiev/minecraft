@@ -1,0 +1,16 @@
+--- tuning-primer-orig.sh	2011-09-02 06:49:10.000000000 +0300
++++ tuning-primer.sh	2016-04-02 11:02:15.147706499 +0300
+@@ -1277,6 +1277,13 @@
+                 else
+                 innodb_enabled=1
+                 fi
++        elif [ "$major_version" = '5.7' ] && [ "$mysql_version_num" -ge 050701 ] ; then
++        mysql_variable \'ignore_builtin_innodb\' ignore_builtin_innodb
++                if [ "$ignore_builtin_innodb" = "ON" ] ; then
++                innodb_enabled=0
++                else
++                innodb_enabled=1
++                fi
+ 	fi
+ 	if [ "$innodb_enabled" = 1 ] ; then
+ 		mysql_variable \'innodb_buffer_pool_size\' innodb_buffer_pool_siz

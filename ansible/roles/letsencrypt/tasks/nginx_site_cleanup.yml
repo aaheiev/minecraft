@@ -1,0 +1,10 @@
+---
+- name: "delete temporary nginx server"
+  notify: restart nginx
+  file:
+    path:  "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/nginx/sites-enabled/temporary-letsencrypt
+    - /etc/nginx/sites-available/temporary-letsencrypt
+

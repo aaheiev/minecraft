@@ -1,0 +1,9 @@
+[mysqld]
+
+general_log_file               = /var/log/mysql/general.log
+general_log                    = {{ percona_server.general_log }}
+log_error                      = /var/log/mysql/error.log
+log_queries_not_using_indexes  = {{ percona_server.log_queries_not_using_indexes }}
+long_query_time                = {{ percona_server.long_query_time }}
+slow_query_log_file            = /var/log/mysql/slow_query.log
+slow_query_log                 = {{ percona_server.slow_query_log }}

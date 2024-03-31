@@ -1,0 +1,5 @@
+---
+- name: "generate dhparam.pem file"
+  command: "openssl dhparam -out {{ dhparam }} 2048"
+  args:
+    creates: "{{ dhparam }}"

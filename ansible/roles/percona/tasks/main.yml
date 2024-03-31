@@ -1,0 +1,30 @@
+---
+# tasks file for percona
+#- name:         configure instance for mysql db
+#  import_tasks: tune_os.yml
+#  when:         percona_server
+#
+#- name:         install percona-release and client
+#  import_tasks: install_percona_release.yml
+#
+#- name:         install mysql and percona tools
+#  import_tasks: tools.yml
+#  when:         percona_server
+#
+#- name:         install percona server 5.7
+#  import_tasks: server_install-5.7.yml
+#  when:
+#    - percona_server
+#    - percona_version == "5.7"
+
+- name:         configure percona server
+  import_tasks: server_config-5.7.yml
+  when:
+    - percona_server
+    - percona_version == "5.7"
+
+#- name:         configure admin access
+#  import_tasks: user.yml
+#  when:
+#    - percona_server
+#    - percona_version == "5.7"

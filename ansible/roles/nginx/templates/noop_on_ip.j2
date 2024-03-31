@@ -1,0 +1,10 @@
+server {
+	{% if (nginx.noop_ips is defined) and ( nginx.noop_ips.0 is undefined ) %}
+	listen      {{ ansible_default_ipv4.address }}:80 default_server;
+	{% else %}
+	listen      {{ ansible_default_ipv4.address }}:80 default_server;
+	{% endif %}
+	location / {
+		return    444;
+	}
+}

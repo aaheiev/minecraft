@@ -1,0 +1,9 @@
+[mysqld]
+
+innodb_file_per_table          = 1
+innodb_buffer_pool_instances   = {{ percona_server.innodb_buffer_pool_instances }}
+innodb_buffer_pool_size        = {{ percona_server.innodb_buffer_pool_size }}
+innodb_flush_method            = O_DIRECT
+
+innodb_log_files_in_group      = 2
+# innodb_log_file_size           =

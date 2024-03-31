@@ -1,0 +1,33 @@
+---
+# based on https://rtfm.co.ua/en/draft-eng-redis-main-configuration-parameters-and-performance-tuning-overview/
+# and https://iamabhishek-dubey.medium.com/redis-best-practices-and-performance-tuning-c48611388bbc
+- name:         install sysfsutils
+  apt:
+    pkg:        sysfsutils
+    state:      present
+
+#- name:         disable transparent_hugepage in sysfs.conf
+#  ini_file:
+#    section:    null
+#    path:       /etc/sysfs.conf
+#    option:     kernel/mm/transparent_hugepage/enabled
+#    value:      never
+#
+#- name:         disable transparent_hugepage runtime
+#  changed_when: False
+#  command:      echo never > /sys/kernel/mm/transparent_hugepage/enabled
+
+- name:         redis kernel tuning
+  sysctl:
+    name:       "{{ item.name }}"
+    value:      "{{ item.value }}"
+    sysctl_set: "yes"
+  with_items:   "{{ redis_sysctl }}"
+
+- name:         configure redis pam_limits
+  community.general.pam_limits:
+    domain:     elasticsearch
+    limit_type: "{{ item.type }}"
+    limit_item: "{{ item.item }}"
+    value:      "{{ item.value }}"
+  with_items:   "{{ redis_pam_limits }}"

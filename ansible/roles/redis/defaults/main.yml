@@ -1,0 +1,31 @@
+---
+# defaults file for redis
+redis_server:         False
+redis_bind_address:   0.0.0.0
+redis_protected_mode: "no"
+redis_port:           "6379"
+redis_pam_limits:
+  - type:  soft
+    item:  nofile
+    value: 65535
+  - type:  hard
+    item:  nofile
+    value: 65535
+
+redis_sysctl:
+  - name:  net.core.somaxconn
+    value: 65535
+  - name:  vm.overcommit_memory
+    value: 1
+  - name:  vm.swappiness
+    value: 0
+  - name:  net.ipv4.tcp_sack
+    value: 1
+  - name:  net.ipv4.tcp_timestamps
+    value: 1
+  - name:  net.ipv4.tcp_window_scaling
+    value: 1
+  - name:  net.ipv4.tcp_congestion_control
+    value: cubic
+  - name:  net.ipv4.tcp_syncookies
+    value: 1

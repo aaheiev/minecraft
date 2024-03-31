@@ -1,0 +1,24 @@
+---
+location: fsn1
+
+ssh_key:
+  name: deploy-ssh-key
+  file_path: ~/.ssh/id_rsa.pub
+
+network:
+  name: default
+  zone: eu-central
+  ip_range: 10.0.0.0/16
+  subnets:
+    eu_central:
+      ip_range: 10.0.4.0/22
+
+minecraft:
+  server:
+    name: minecraft-server
+    type: cpx31
+    os: ubuntu-22.04
+  storage:
+    data_volume_name: minecraft-data
+    data_volume_size_gb: 10
+    data_volume_delete_protection: true

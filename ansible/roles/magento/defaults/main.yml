@@ -1,0 +1,16 @@
+---
+# defaults file for magento
+magento_db_name:       magento
+magento_db_user:       magento
+magento_run_mode:      developer
+magento_os_user:       magento
+magento_db_pass:       maGent0Pa$$
+magento_root:          /var/www/magento
+magento_name:          magento
+magento_debug:         1
+magento_public_key:    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+magento_private_key:   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+composer_path:         /usr/local/bin/composer
+composer_keep_updated: false
+composer_home_path:    '~/.composer'
+composer_version:      ''

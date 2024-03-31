@@ -1,0 +1,7 @@
+---
+# defaults file for nginx
+dhparam:                   /etc/ssl/certs/dhparam.pem
+nginx_branch:              stable
+nginx_worker_connections:  1024
+nginx_delete_default_site: False
+nginx_status_on_localhost: False

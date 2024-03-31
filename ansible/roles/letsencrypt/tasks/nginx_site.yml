@@ -1,0 +1,24 @@
+---
+- name: "configure empty nginx site"
+  template:
+    src: nginx_site.j2
+    dest: "/etc/nginx/sites-available/temporary-letsencrypt"
+    mode: 0644
+
+- name: "enable empty nginx site"
+  file:
+    src:   /etc/nginx/sites-available/temporary-letsencrypt
+    dest:  /etc/nginx/sites-enabled/temporary-letsencrypt
+    state: link
+
+- name: "create site webroot"
+  file:
+    path: "{{ letsencrypt_webroot }}"
+    state: directory
+    mode: 0755
+
+#- name: "create empty html file"
+#  file: path="{{ letsencrypt_webroot }}/empty.html" state=touch
+
+- name: "restart nginx"
+  service: name=nginx state=restarted enabled=yes

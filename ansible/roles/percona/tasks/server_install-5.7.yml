@@ -1,0 +1,49 @@
+---
+- name:          check predefine root's password exists
+  changed_when:  false
+  shell:         "debconf-show percona-server-server-5.7 | grep 'percona-server-server-5.7/root-pass:' || true"
+  register:      root_pass_result
+  ignore_errors: True
+
+- name:          predefine root's password
+  when:          root_pass_result.stdout == ""
+  debconf:
+    name:        "percona-server-server-{{ percona_version }}"
+    question:    "percona-server-server-{{ percona_version }}/root-pass"
+    value:       "{{ mysql_server_root_pass }}"
+    vtype:       'password'
+
+- name:          check confirmation for predefine root's password exists
+  changed_when:  false
+  shell:         "debconf-show percona-server-server-5.7 | grep 'percona-server-server-5.7/re-root-pass:' || true"
+  register:      re_root_pass_result
+  ignore_errors: True
+
+- name:          confirm root's password
+  when:          re_root_pass_result.stdout == ""
+  debconf:
+    name:        "percona-server-server-5.7"
+    question:    "percona-server-server-5.7/re-root-pass"
+    value:       "{{ mysql_server_root_pass }}"
+    vtype:       'password'
+
+# echo UNREGISTER percona-server-server-5.7/root-pass | debconf-communicate percona-server-server-5.7
+# echo UNREGISTER percona-server-server-5.7/re-root-pass | debconf-communicate percona-server-server-5.7
+#- debug: var=root_pass_result.stdout
+#- debug: var=re_root_pass_result.stdout
+
+#- name:          ensure mysql data dir owned by mysql
+#  file:
+#    path:        /var/lib/mysql
+#    state:       directory
+#    mode:        0755
+#    owner:       mysql
+#    group:       mysql
+
+#- name:          remove lock file
+#  file:          path=/var/lib/mysql/debian-5.7.flag state=absent
+
+- name:          install percona-server
+  apt:           name="percona-server-server-5.7" state=present force=yes
+  environment:
+    DEBIAN_FRONTEND: noninteractive

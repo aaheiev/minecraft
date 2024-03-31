@@ -1,0 +1,10 @@
+---
+# defaults file for letsencrypt
+dhparam:                /etc/ssl/certs/dhparam.pem
+letsencrypt_webroot:    /var/www/html
+letsencrypt_hostmaster: hostmaster@simple-site1.com
+letsencrypt_domain_names:
+  - simple-site1.com
+  - cdn.simple-site1.com
+  - www.simple-site1.com
+  - www2.simple-site1.com

@@ -1,5 +1,11 @@
+# Dev settings
+ansible-vault.pass
+*.env*
+.secrets/**
+
 # Local .terraform directories
 **/.terraform/*
+.terraform.lock.hcl
 
 # .tfstate files
 *.tfstate

@@ -1,0 +1,75 @@
+---
+########################################################################################################################
+# common server config
+########################################################################################################################
+- name:       set common mysqld parameters
+  notify:     restart mysql
+  ini_file:
+    path:     /etc/mysql/percona-server.conf.d/mysqld.cnf
+    section:  mysqld
+    option:   "{{ item.option }}"
+    value:    "{{ item.value }}"
+  with_items: "{{ mysqld_config_common }}"
+########################################################################################################################
+# custom server config
+########################################################################################################################
+- name:       set custom mysqld parameters
+  notify:     restart mysql
+  ini_file:
+    path:     /etc/mysql/percona-server.conf.d/mysqld.cnf
+    section:  mysqld
+    option:   "{{ item.option }}"
+    value:    "{{ item.value }}"
+  with_items: "{{ mysqld_config }}"
+########################################################################################################################
+# server logs
+########################################################################################################################
+- name:       create dir /var/log/mysql
+  file:
+    path:     /var/log/mysql
+    state:    directory
+    owner:    mysql
+    group:    mysql
+
+- name:       set mysqld parameters for logs
+  notify:     restart mysql
+  ini_file:
+    path:     /etc/mysql/percona-server.conf.d/mysqld.cnf
+    section:  mysqld
+    option:   "{{ item.option }}"
+    value:    "{{ item.value }}"
+  with_items: "{{ mysqld_config_logs }}"
+
+########################################################################################################################
+# innodb
+########################################################################################################################
+- name:       set mysqld_config innodb common options
+  notify:     restart mysql
+  ini_file:
+    path:     /etc/mysql/percona-server.conf.d/mysqld.cnf
+    section:  mysqld
+    option:   "{{ item.option }}"
+    value:    "{{ item.value }}"
+  with_items: "{{ mysqld_config_innodb_common }}"
+
+
+- name:       set mysqld_config innodb options
+  notify:     restart mysql
+  ini_file:
+    path:     /etc/mysql/percona-server.conf.d/mysqld.cnf
+    section:  mysqld
+    option:   "{{ item.option }}"
+    value:    "{{ item.value }}"
+  with_items: "{{ mysqld_config_innodb }}"
+
+########################################################################################################################
+# transactions logging
+########################################################################################################################
+- name:       set mysqld replication parameters
+  notify:     restart mysql
+  ini_file:
+    path:     /etc/mysql/percona-server.conf.d/mysqld.cnf
+    section:  mysqld
+    option:   "{{ item.option }}"
+    value:    "{{ item.value }}"
+  with_items: "{{ mysqld_config_replication }}"

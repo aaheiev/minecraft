@@ -1,0 +1,30 @@
+---
+- name:           check if percona-release is installed
+  command:        dpkg-query -W percona-release
+  register:       percona_release_check_deb
+  failed_when:    percona_release_check_deb.rc > 1
+  changed_when:   percona_release_check_deb.rc == 1
+
+- name:           download percona-release
+  get_url:
+    url:          "https://repo.percona.com/apt/percona-release_{{ percona_release }}.generic_all.deb"
+    dest:         "/tmp/percona-release_{{ percona_release }}.generic_all.deb"
+  when:           percona_release_check_deb.rc == 1
+
+- name:           "install percona-release-{{ percona_release }}.generic_all.deb"
+  apt:
+    deb:          "/tmp/percona-release_{{ percona_release }}.generic_all.deb"
+    state:        present
+  when:           percona_release_check_deb.rc == 1
+
+- name:           apt update as a separate step
+  apt:
+    update_cache: yes
+  changed_when:   false
+
+- name:           "install percona-server-client-{{ percona_version }}"
+  apt:
+    state:        present
+    pkg:
+    - "percona-server-common-{{ percona_version }}"
+    - "percona-server-client-{{ percona_version }}"

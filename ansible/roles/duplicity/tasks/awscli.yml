@@ -1,0 +1,14 @@
+---
+- name:       configure awscli credentials
+  no_log:     True
+  ini_file:
+    path:     "{{ ansible_env.HOME }}/.aws/credentials"
+    section:  default
+    mode:     0600
+    option:   "{{ item.option }}"
+    value:    "{{ item.value }}"
+  with_items:
+    - option: aws_access_key_id
+      value:  "{{ duplicity_aws_access_key_id }}"
+    - option: aws_secret_access_key
+      value:  "{{ duplicity_aws_secret_access_key }}"

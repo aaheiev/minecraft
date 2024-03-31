@@ -1,0 +1,4 @@
+---
+# vars file for elasticsearch
+elasticsearch_node_name: "{{ ansible_hostname }}"
+#node_name: "{{ inventory_hostname }}"

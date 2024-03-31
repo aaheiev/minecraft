@@ -1,0 +1,12 @@
+---
+- name:             "ensure root@127.0.0.1 exists"
+  notify:           restart mysql
+  no_log:           True
+  mysql_user:
+    login_user:     'root'
+    login_password: "{{ mysql_server_root_pass }}"
+    name:           'root'
+    host:           '127.0.0.1'
+    password:       "{{ mysql_server_root_pass }}"
+    priv:           '*.*:ALL,GRANT'
+    state:          present

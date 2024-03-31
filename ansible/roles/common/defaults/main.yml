@@ -1,0 +1,12 @@
+---
+# defaults file for common
+timezone: Etc/UTC
+common:
+  packages:
+    - aptitude
+    - bash-completion
+    - htop
+    - mc
+    - ncdu
+    - tmux
+    - software-properties-common

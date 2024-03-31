@@ -1,0 +1,23 @@
+---
+- name:    install mysql tools
+  apt:
+    state: present
+    pkg:
+      - bc
+      - libmysqlclient-dev
+      - mydumper
+      - mysqltuner
+      - python3-dev
+      - python3-pip
+      - python3-mysqldb
+
+- name:    install python mysql module
+  pip:     name=mysqlclient
+
+- name:    install tuning-primer.sh
+  copy:
+    src:   tuning-primer.sh
+    dest:  /usr/local/bin/tuning-primer.sh
+    owner: root
+    group: root
+    mode:  0755

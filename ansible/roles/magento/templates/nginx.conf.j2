@@ -1,0 +1,23 @@
+server {
+	listen          80;
+	listen          [::]:80;
+	listen          443 ssl http2;
+	listen          [::]:443 ssl http2;
+	resolver        8.8.8.8 8.8.4.4;
+	server_name     {{ letsencrypt_domain_names|join(' ') }};
+	access_log      /var/log/nginx/{{ magento_name }}.access.log;
+	error_log       /var/log/nginx/{{ magento_name }}.error.log;
+
+	set $my_http    "http";
+	set $my_ssl     "off";
+	set $my_port    "80";
+	if ($http_x_forwarded_proto = "https") {
+		set $my_http   "https";
+		set $my_ssl    "on";
+		set $my_port   "443";
+	}
+	set $MAGE_ROOT  {{ magento_root }};
+	set $MAGE_MODE  {{ magento_run_mode }};
+	set $MAGE_DEBUG_SHOW_ARGS {{ magento_debug }};
+	include         {{ magento_root }}/nginx.conf.sample;
+}

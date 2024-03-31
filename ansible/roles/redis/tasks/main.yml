@@ -1,0 +1,20 @@
+---
+# tasks file for redis
+- name:   install redis ppa and tools
+  import_tasks: install.yml
+
+- name:   tune redis-server
+  import_tasks: tune_server.yml
+  when:   redis_server
+
+- name:   install redis-server
+  import_tasks: install_server.yml
+  when:   redis_server
+
+- name:   configure redis server
+  when:   redis_server
+  notify: restart redis-server
+  template:
+    src:  redis-cache-only.conf
+    dest: /etc/redis/redis.conf
+    mode: 0640

@@ -1,0 +1,6 @@
+---
+# defaults file for duplicity
+duplicity_aws_region:            eu-central-1
+duplicity_aws_s3_bucket:         rybray2
+duplicity_aws_access_key_id:     XXXXXXXXXXXXXXXXXXXXXXXXXX
+duplicity_aws_secret_access_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
