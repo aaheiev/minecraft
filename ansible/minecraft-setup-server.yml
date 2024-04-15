@@ -1,0 +1,42 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: minecraft_server
+  roles:
+    - common
+  tasks:
+    - name: Create Minecraft user
+      ansible.builtin.user:
+        name: minecraft
+        comment: Minecraft User
+        shell: /bin/bash
+        uid: 1000
+
+    - name: Creates minecraft home directory
+      ansible.builtin.file:
+        path: /home/minecraft
+        state: directory
+        owner: minecraft
+        group: minecraft
+        mode: 0775
+
+    - name: Mount Minecraft home dir
+      ansible.posix.mount:
+        path: /home/minecraft
+        src: "{{ minecraft_volume_linux_device }}"
+        fstype: ext4
+        opts: discard,nofail,defaults
+        state: mounted
+
+    - name: Set minecraft home directory permissions
+      ansible.builtin.file:
+        path: /home/minecraft
+        state: directory
+        recurse: yes
+        owner: minecraft
+        group: minecraft
+        mode: 0775
+
+    - name: install java
+      apt:
+        pkg: openjdk-17-jdk
+        state: present

@@ -1,7 +1,0 @@
-server {
-  listen                         0.0.0.0:80;
-  server_name                    {{ letsencrypt_domain_names|join(' ') }};
-  root                           {{ letsencrypt_webroot }};
-  location ~ /.well-known        { allow all;}
-  index                          empty.html;
-}

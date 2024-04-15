@@ -20,3 +20,7 @@ variable "github_sa_name" {
 variable "github_repo" {
   type = string
 }
+
+variable "dns_zone_name" {
+  type = string
+}

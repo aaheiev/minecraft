@@ -1,4 +1,0 @@
----
-- name: "kernel tuning"
-  sysctl: name="{{ item.name }}" value="{{ item.value }}" sysctl_set=yes
-  with_items: "{{ steroids.sysctl }}"

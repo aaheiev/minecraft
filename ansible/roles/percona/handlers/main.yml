@@ -1,4 +1,0 @@
----
-# handlers file for percona
-- name: restart mysql
-  service: name=mysql state=restarted enabled=yes

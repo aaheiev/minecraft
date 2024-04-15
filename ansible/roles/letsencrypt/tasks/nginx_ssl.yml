@@ -1,7 +1,0 @@
----
-- name:   "configure nginx ssl"
-  notify: restart nginx
-  template:
-    src:  tls.conf.j2
-    dest: /etc/nginx/conf.d/tls.conf
-    mode: 0644
