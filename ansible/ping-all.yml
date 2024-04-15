@@ -1,6 +1,0 @@
-#!/usr/bin/env ansible-playbook
----
-- hosts: all
-  tasks:
-    - debug: var=timezone
-    - ping:
