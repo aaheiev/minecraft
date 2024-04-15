@@ -1,12 +1,11 @@
 ---
-# gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
-# aaheiev/mc-iac:0.0.1-1
+# aaheiev/minecraft-iac:0.0.1-1
 secrets:
   gcloud_sa_key.json:
-    file: .secrets/aaheiev-335511-6d43ea04da41.json
+    file: .secrets/bijlmerdreef-733-f730bf6b9a56.json
 services:
   iac:
-    image:        gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
+    image:        aaheiev/minecraft-iac:0.0.1-1
     platform:     linux/amd64
     stdin_open:   true
     tty:          true
@@ -19,6 +18,7 @@ services:
     env_file:
       - ./hcloud/.env.dev
     volumes:
+      - ./ansible:/ansible:rw
       - ./conf:/conf:ro
       - ./modules:/modules:rw
       - ./hcloud:/hcloud:rw

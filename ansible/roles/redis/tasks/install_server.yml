@@ -1,8 +1,0 @@
----
-- name:   install redis server
-  notify: restart redis-server
-  apt:
-    pkg:
-      - redis-server
-      - python3-redis
-    state: present
