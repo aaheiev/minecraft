@@ -68,16 +68,17 @@ jobs:
       - name: Show image url
         run: |
           echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.set-version.outputs.VERSION }}"
-#      - name: Build and push Docker image
-#        id: build-and-push
-#        uses: docker/build-push-action@v5
-#        with:
-#          context: .
-#          file: docker/base/Dockerfile
-#          push: true
-#          tags: ${{ steps.set-version.outputs.VERSION }}
-#          cache-from: type=gha
-#          cache-to: type=gha,mode=max
+
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/base/Dockerfile
+          push: true
+          tags: "${{ env.IMAGE_NAME }}:${{ steps.set-version.outputs.VERSION }}"
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
