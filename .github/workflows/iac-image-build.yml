@@ -29,6 +29,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set version
+        id: set-version
+        run: |
+          VERSION="0.0.${{ github.run_number }}-dev"
+          echo "VERSION=$(echo $VERSION)" >> $GITHUB_ENV
+          echo "VERSION=$(echo $VERSION)" >> $GITHUB_OUTPUT
+          echo "VERSION=$(echo $VERSION)"
+
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
@@ -63,10 +71,10 @@ jobs:
         with:
           context: .
           file: docker/base/Dockerfile
-          push: false
+          push: true
           # push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.set-version.outputs.VERSION }}
+#          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
